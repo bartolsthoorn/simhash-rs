@@ -3,7 +3,6 @@
 // With the help of http://matpalm.com/resemblance/simhash/
 
 #![license = "MIT"]
-#![crate_type = "lib"]
 
 pub mod simhash {
   use std::hash;
