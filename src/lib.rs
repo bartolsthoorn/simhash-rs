@@ -36,5 +36,6 @@ pub mod simhash {
 #[test]
 fn simhash_test() {
   assert!(simhash::hash("The cat sat on the mat") == 2595200813813010837);
+  assert!(simhash::hash("The cat sat under the mat") == 2595269945604666783);
   assert!(simhash::hash("Why the lucky stiff") == 1155526875459215761);
 }
