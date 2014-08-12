@@ -6,4 +6,3 @@ authors = ["Bart Olsthoorn <bartolsthoorn@gmail.com>"]
 
 [[lib]]
 name = "simhash"
-path = "src/simhash.rs"
