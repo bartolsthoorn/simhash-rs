@@ -7,6 +7,7 @@
 pub mod simhash {
   use std::hash;
 
+  /// Convert string into `u64` simhash
   pub fn hash(subject: &str) -> u64 {
     let mut v: [int, ..64]  = [0, ..64];
     let mut simhash: u64 = 0;
@@ -32,15 +33,19 @@ pub mod simhash {
     simhash
   }
 
+  /// Calculate hamming distance of two `u64` hashes
   pub fn hamming_distance(x: u64, y: u64) -> u64 {
     (x ^ y).count_ones()
   }
 
+  /// Calculate similarity as `f64` of two hashes
+  /// 0.0 means no similarity, 1.0 means identical
   pub fn hash_similarity(hash1: u64, hash2: u64) -> f64 {
     let distance: f64 = hamming_distance(hash1, hash2) as f64;
     1.0 - (distance / 64.0)
   }
 
+  /// Calculate similarity of two string slices by simhash
   pub fn similarity(x: &str, y: &str) -> f64 {
     hash_similarity(hash(x), hash(y))
   }
