@@ -4,5 +4,5 @@ name = "simhash"
 version = "0.0.1"
 authors = ["Bart Olsthoorn <bartolsthoorn@gmail.com>"]
 
-[[lib]]
+[lib]
 name = "simhash"
