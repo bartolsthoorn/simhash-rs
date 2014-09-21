@@ -33,7 +33,7 @@ pub fn hash(subject: &str) -> u64 {
 }
 
 /// Bitwise hamming distance of two `u64` hashes
-pub fn hamming_distance(x: u64, y: u64) -> u64 {
+pub fn hamming_distance(x: u64, y: u64) -> uint {
   (x ^ y).count_ones()
 }
 

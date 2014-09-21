@@ -1,5 +1,5 @@
 [package]
 
 name = "simhash"
-version = "0.0.2"
+version = "0.1.0"
 authors = ["Bart Olsthoorn <bartolsthoorn@gmail.com>"]
