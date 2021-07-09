@@ -1,8 +1,12 @@
 [package]
-authors = ["Bart Olsthoorn <bartolsthoorn@gmail.com>", "Jakub Pastuszek <jpastuszek@gmail.com>"]
+authors = [
+  "Bart Olsthoorn <bartolsthoorn@gmail.com>",
+  "Jakub Pastuszek <jpastuszek@gmail.com>",
+]
 license = "MIT"
 name = "simhash"
-version = "0.2.0"
+version = "0.3.0"
+edition = "2018"
 
 [features]
 default = ["hasher-sip"]
@@ -16,11 +20,11 @@ name = "simhash"
 
 [dependencies.siphasher]
 optional = true
-version = "0.2.2"
+version = "0.3.5"
 
 [dependencies.fnv]
 optional = true
-version = "1.0.5"
+version = "1.0.7"
 
 [dev-dependencies]
-bencher = "0.1.2"
+bencher = "0.1.5"
