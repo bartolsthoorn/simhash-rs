@@ -4,18 +4,15 @@
 Simhash algorithm (developed by [Moses Charikar](http://www.cs.princeton.edu/courses/archive/spring04/cos598B/bib/CharikarEstim.pdf)) implemented in Rust. It generates 64 bit simhashes and can calculate similarities using the [Hamming distance](http://en.wikipedia.org/wiki/Hamming_distance).
 
 To use simhash append the following lines to your `Cargo.toml` file.
-~~~toml
-[dependencies.simhash]
+```toml
+[dependencies]
+simhash = "0.3.0"
+```
 
-git = "https://github.com/bartolsthoorn/simhash-rs.git"
-~~~
-
-You can now use it in your project by adding simhash as an extern crate.
-~~~rust
-extern crate simhash;
-
+You can now use it in your project.
+```rust
 fn main() {
   let h: u64 = simhash::hash("The cat sat on the mat");
   println!("{}", h);
 }
-~~~
+```

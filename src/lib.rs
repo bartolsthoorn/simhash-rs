@@ -1,13 +1,9 @@
-// Rust Simhash
-// Implemented by Bart Olsthoorn on 12/08/2014
-// Ported to Rust 1.16.0 by Jakub Pastuszek on 29/05/2017
-// With the help of http://matpalm.com/resemblance/simhash/
-
-#[cfg(all(feature = "hasher-sip", not(feature = "hasher-fnv")))]
-extern crate siphasher;
-#[cfg(all(feature = "hasher-fnv", not(feature = "hasher-sip")))]
-extern crate fnv;
-
+/**
+Rust Simhash
+Implemented by Bart Olsthoorn on 12/08/2014
+Ported to Rust 1.16.0 by Jakub Pastuszek on 29/05/2017
+With the help of http://matpalm.com/resemblance/simhash/
+*/
 use std::hash::{Hash, Hasher};
 
 // Note: stdlib no longer exposes SipHasher directly
@@ -29,7 +25,8 @@ fn hash_feature<T: Hash>(t: &T) -> u64 {
 
 /// Calculate `u64` simhash from stream of `&str` words
 pub fn simhash_stream<'w, W>(words: W) -> u64
-    where W: Iterator<Item = &'w str>
+where
+    W: Iterator<Item = &'w str>,
 {
     let mut v = [0i32; 64];
     let mut simhash: u64 = 0;
@@ -61,7 +58,7 @@ pub fn simhash(text: &str) -> u64 {
 }
 
 /// Calculate `u64` simhash from `&str` split by whitespace
-#[deprecated(since="0.2.0", note="please use `simhash` instead")]
+#[deprecated(since = "0.2.0", note = "please use `simhash` instead")]
 pub fn hash(text: &str) -> u64 {
     simhash_stream(text.split_whitespace())
 }
@@ -80,8 +77,9 @@ pub fn hash_similarity(hash1: u64, hash2: u64) -> f64 {
 
 /// Calculate similarity of two streams of string slices by simhash
 pub fn similarity_streams<'w1, 'w2, W1, W2>(words1: W1, words2: W2) -> f64
-    where W1: Iterator<Item = &'w1 str>,
-          W2: Iterator<Item = &'w2 str>
+where
+    W1: Iterator<Item = &'w1 str>,
+    W2: Iterator<Item = &'w2 str>,
 {
     hash_similarity(simhash_stream(words1), simhash_stream(words2))
 }
