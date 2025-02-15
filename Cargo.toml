@@ -12,11 +12,16 @@ edition = "2018"
 default = ["hasher-sip"]
 hasher-sip = ["siphasher"]
 hasher-fnv = ["fnv"]
+async-stream = ["futures"]
 mutually_exclusive_features = ["hasher-sip", "hasher-fnv"]
 
 [[bench]]
 harness = false
 name = "simhash"
+
+[dependencies.futures]
+version = "0.3.31"
+optional = true
 
 [dependencies.siphasher]
 optional = true
