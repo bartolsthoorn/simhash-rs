@@ -55,10 +55,10 @@ where
 }
 
 #[cfg(feature = "async-stream")]
-/// Calculate `u64` simhash from async stream of `&str` words
-pub async fn simhash_async_stream<'w, W>(mut words: W) -> u64
+/// Calculate `u64` simhash from async stream of `String` words
+pub async fn simhash_async_stream<W>(mut words: W) -> u64
 where
-    W: Stream<Item = &'w str> + Unpin,
+    W: Stream<Item = String> + Unpin,
 {
     let mut v = [0i32; 64];
     let mut simhash: u64 = 0;
@@ -119,10 +119,10 @@ where
 
 #[cfg(feature = "async-stream")]
 /// Calculate similarity of two async streams of string slices by simhash
-pub async fn async_similarity_streams<'w1, 'w2, W1, W2>(words1: W1, words2: W2) -> f64
+pub async fn async_similarity_streams<W1, W2>(words1: W1, words2: W2) -> f64
 where
-    W1: Stream<Item = &'w1 str> + Unpin,
-    W2: Stream<Item = &'w2 str> + Unpin,
+    W1: Stream<Item = String> + Unpin,
+    W2: Stream<Item = String> + Unpin,
 {
     hash_similarity(simhash_async_stream(words1).await, simhash_async_stream(words2).await)
 }
