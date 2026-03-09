@@ -2,11 +2,10 @@
 extern crate bencher;
 extern crate simhash;
 
-use bencher::{Bencher, black_box};
+use bencher::{black_box, Bencher};
 use simhash::simhash;
 
-static ALICE: &'static str =
-r#"ALICE'S ADVENTURES IN WONDERLAND
+static ALICE: &'static str = r#"ALICE'S ADVENTURES IN WONDERLAND
 CHAPTER I. Down the Rabbit-Hole
 
 Alice was beginning to get very tired of sitting by her sister on the
