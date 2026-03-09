@@ -34,19 +34,19 @@ where
     for feature in words {
         let feature_hash: u64 = hash_feature(&feature);
 
-        for i in 0..64 {
+        for (i, weight) in v.iter_mut().enumerate() {
             let bit = (feature_hash >> i) & 1;
             if bit == 1 {
-                v[i] = v[i].saturating_add(1);
+                *weight = weight.saturating_add(1);
             } else {
-                v[i] = v[i].saturating_sub(1);
+                *weight = weight.saturating_sub(1);
             }
         }
     }
 
-    for q in 0..64 {
-        if v[q] > 0 {
-            simhash |= 1 << q;
+    for (i, weight) in v.iter().enumerate() {
+        if *weight > 0 {
+            simhash |= 1 << i;
         }
     }
     simhash

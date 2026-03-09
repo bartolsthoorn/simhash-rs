@@ -1,12 +1,18 @@
 [package]
+name = "simhash"
+version = "0.3.0"
+edition = "2021"
 authors = [
   "Bart Olsthoorn <bartolsthoorn@gmail.com>",
   "Jakub Pastuszek <jpastuszek@gmail.com>",
 ]
 license = "MIT"
-name = "simhash"
-version = "0.3.0"
-edition = "2018"
+description = "Simhash algorithm for 64-bit locality-sensitive hashing and similarity calculation"
+repository = "https://github.com/bartolsthoorn/simhash-rs"
+homepage = "https://github.com/bartolsthoorn/simhash-rs"
+keywords = ["simhash", "hash", "similarity", "hamming", "lsh"]
+categories = ["algorithms", "text-processing"]
+readme = "README.md"
 
 [features]
 default = ["hasher-sip"]
