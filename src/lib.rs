@@ -5,6 +5,8 @@ Ported to Rust 1.16.0 by Jakub Pastuszek on 29/05/2017
 With the help of http://matpalm.com/resemblance/simhash/
 */
 use std::hash::{Hash, Hasher};
+#[cfg(feature = "async-stream")]
+use futures::stream::{Stream, StreamExt};
 
 // Note: stdlib no longer exposes SipHasher directly
 #[cfg(all(feature = "hasher-sip", not(feature = "hasher-fnv")))]
@@ -52,6 +54,37 @@ where
     simhash
 }
 
+#[cfg(feature = "async-stream")]
+/// Calculate `u64` simhash from async stream of `String` words
+pub async fn simhash_async_stream<W>(mut words: W) -> u64
+where
+    W: Stream<Item = String> + Unpin,
+{
+    let mut v = [0i32; 64];
+    let mut simhash: u64 = 0;
+
+    while let Some(feature) = words.next().await {
+        let feature_hash: u64 = hash_feature(&feature);
+
+        for i in 0..64 {
+            let bit = (feature_hash >> i) & 1;
+            if bit == 1 {
+                v[i] = v[i].saturating_add(1);
+            } else {
+                v[i] = v[i].saturating_sub(1);
+            }
+        }
+    }
+
+    for q in 0..64 {
+        if v[q] > 0 {
+            simhash |= 1 << q;
+        }
+    }
+    simhash
+}
+
+
 /// Calculate `u64` simhash from `&str` split by whitespace
 pub fn simhash(text: &str) -> u64 {
     simhash_stream(text.split_whitespace())
@@ -82,6 +115,16 @@ where
     W2: Iterator<Item = &'w2 str>,
 {
     hash_similarity(simhash_stream(words1), simhash_stream(words2))
+}
+
+#[cfg(feature = "async-stream")]
+/// Calculate similarity of two async streams of string slices by simhash
+pub async fn async_similarity_streams<W1, W2>(words1: W1, words2: W2) -> f64
+where
+    W1: Stream<Item = String> + Unpin,
+    W2: Stream<Item = String> + Unpin,
+{
+    hash_similarity(simhash_async_stream(words1).await, simhash_async_stream(words2).await)
 }
 
 /// Calculate similarity of two string slices split by whitespace by simhash
